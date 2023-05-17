@@ -123,3 +123,10 @@ export function toggleStar(item: ITodoItem) {
 
   setTodoList([...todoList()]);
 }
+
+export function deleteTodo(item: ITodoItem) {
+  const p = parentMap.get(item)!;
+  p.children?.splice(p.children.indexOf(item));
+
+  setTodoList([...todoList()]);
+}

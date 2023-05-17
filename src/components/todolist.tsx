@@ -2,6 +2,7 @@ import {
   ITodoItem,
   addTodo,
   clearDoneTodo,
+  deleteTodo,
   onlyShowStar,
   resetTodoTitle,
   todoList,
@@ -97,7 +98,15 @@ function TodoListItem(props: {
             <a onClick={() => toToggleShow(item)} href='javascript:'>
               {item.show ? '~' : '@'}
             </a>
-          )) || <a href='javascript:'>-</a>}
+          )) || (
+            <a
+              href='javascript:'
+              onMouseDown={() => startToDelete(item)}
+              onMouseUp={cancelDeleting}
+            >
+              -
+            </a>
+          )}
         </div>
       )}
       {(item.show || onlyShowStar()) &&
@@ -139,4 +148,15 @@ function toToggleShow(item: ITodoItem) {
 
 function toToggleStar(item: ITodoItem) {
   toggleStar(item);
+}
+
+let timer: NodeJS.Timer;
+function startToDelete(item: ITodoItem) {
+  timer = setTimeout(() => {
+    deleteTodo(item);
+  }, 1000);
+}
+
+function cancelDeleting() {
+  clearTimeout(timer);
 }
