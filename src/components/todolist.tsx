@@ -100,7 +100,7 @@ function TodoListItem(props: {
           )) || <a href='javascript:'>-</a>}
         </div>
       )}
-      {item.show &&
+      {(item.show || onlyShowStar()) &&
         children &&
         children.map((c, i) => (
           <TodoListItem prefix={`${prefix}${index}.`} index={i} item={c} />
