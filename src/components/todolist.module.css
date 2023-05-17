@@ -1,5 +1,6 @@
 a {
   text-decoration: none;
+  color: inherit;
 }
 
 a:hover {
@@ -8,4 +9,13 @@ a:hover {
 
 input:checked + label {
   text-decoration: line-through;
+}
+
+button {
+  border: none;
+  outline: none;
+  
+  border-radius: 5px;
+
+  cursor: pointer;
 }

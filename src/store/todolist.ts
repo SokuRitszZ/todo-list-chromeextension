@@ -1,9 +1,10 @@
-import { children, createEffect, createSignal } from 'solid-js';
+import { createEffect, createSignal } from 'solid-js';
 
 export type ITodoItem = {
   title: string;
   done: boolean;
   show: boolean;
+  star: boolean;
   children?: ITodoItem[];
 };
 
@@ -11,14 +12,22 @@ function newTodo(title: string): ITodoItem {
   return {
     title,
     done: false,
-    show: true
+    show: true,
+    star: false,
   };
 }
 
 const [todoList, setTodoList] = createSignal<ITodoItem[]>(
   JSON.parse(localStorage.getItem('todo-list') || '[]')
 );
-export { todoList };
+
+const [onlyShowStar, setOnlyShowStar] = createSignal(false);
+
+export function toggleShowStar() {
+  setOnlyShowStar(!onlyShowStar());
+}
+
+export { todoList, onlyShowStar };
 
 createEffect(() => {
   localStorage.setItem('todo-list', JSON.stringify(todoList()));
@@ -105,6 +114,12 @@ export function clearDoneTodo() {
 
 export function toggleShow(item: ITodoItem) {
   item.show = !item.show;
+
+  setTodoList([...todoList()]);
+}
+
+export function toggleStar(item: ITodoItem) {
+  item.star = !item.star;
 
   setTodoList([...todoList()]);
 }

@@ -2,10 +2,13 @@ import {
   ITodoItem,
   addTodo,
   clearDoneTodo,
+  onlyShowStar,
   resetTodoTitle,
   todoList,
   toggleDone,
   toggleShow,
+  toggleShowStar,
+  toggleStar,
 } from '@root/store/todolist';
 import { createSignal } from 'solid-js';
 import style from './todolist.module.css';
@@ -29,6 +32,16 @@ export function TodoList() {
         <button class='flex-none' onClick={toClearTodo}>
           清除
         </button>
+        <button
+          style={{
+            'background-color': onlyShowStar() ? '#800' : '#ccc',
+            color: onlyShowStar() ? '#ddd' : 'inherit',
+          }}
+          class='flex-none'
+          onClick={toggleShowStar}
+        >
+          特殊
+        </button>
       </div>
       <div class='w-full max-h-[20rem] overflow-auto mt-2'>
         {todoList().map((c, i) => (
@@ -39,7 +52,7 @@ export function TodoList() {
   );
 }
 
-const colors = ['fed', 'cba', '987', '654'];
+const colors = ['fed', 'edc', 'dcb', 'cba', 'ba9'];
 
 function TodoListItem(props: {
   item: ITodoItem;
@@ -53,34 +66,40 @@ function TodoListItem(props: {
 
   return (
     <>
-      <div
-        class='w-full h-5 flex items-center gap-3 pl-2 pr-3 box-border'
-        style={{
-          'background-color': color,
-        }}
-      >
-        <input
-          class='hidden'
-          id={id}
-          onChange={() => toToggleDone(item)}
-          checked={item.done}
-          type='checkbox'
-        />
-        <label for={id} class='w-[12rem] overflow-hidden whitespace-nowrap'>
-          {prefix + index}-{item.title}
-        </label>
-        <a onClick={() => toAddTodo(item)} href='javascript:'>
-          +
-        </a>
-        <a onClick={() => toResetTodoTitle(item)} href='javascript:'>
-          #
-        </a>
-        {children && children.length && (
-          <a onClick={() => toToggleShow(item)} href='javascript:'>
-            {item.show ? '~' : '@'}
+      {((onlyShowStar() && item.star) || !onlyShowStar()) && (
+        <div
+          class='w-full h-5 flex items-center gap-3 pl-2 pr-3 box-border'
+          style={{
+            'background-color': color,
+            color: item.star ? '#a00' : '#222',
+          }}
+        >
+          <a onClick={() => toToggleStar(item)} href='javascript:'>
+            {item.star ? '$' : '*'}
           </a>
-        )}
-      </div>
+          <input
+            class='hidden'
+            id={id}
+            onChange={() => toToggleDone(item)}
+            checked={item.done}
+            type='checkbox'
+          />
+          <label for={id} class='w-[12rem] overflow-hidden whitespace-nowrap'>
+            {prefix + index}-{item.title}
+          </label>
+          <a onClick={() => toAddTodo(item)} href='javascript:'>
+            +
+          </a>
+          <a onClick={() => toResetTodoTitle(item)} href='javascript:'>
+            #
+          </a>
+          {(children && children.length && (
+            <a onClick={() => toToggleShow(item)} href='javascript:'>
+              {item.show ? '~' : '@'}
+            </a>
+          )) || <a href='javascript:'>-</a>}
+        </div>
+      )}
       {item.show &&
         children &&
         children.map((c, i) => (
@@ -116,4 +135,8 @@ function toResetTodoTitle(item: ITodoItem) {
 
 function toToggleShow(item: ITodoItem) {
   toggleShow(item);
+}
+
+function toToggleStar(item: ITodoItem) {
+  toggleStar(item);
 }
