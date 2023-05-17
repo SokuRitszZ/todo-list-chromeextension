@@ -21,6 +21,6 @@ export function makeManifest(): PluginOption {
 
         console.log('\nMake Manifest.json OK!\n');
       });
-    }
+    },
   };
 }

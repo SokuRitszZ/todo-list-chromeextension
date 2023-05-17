@@ -6,6 +6,6 @@ a:hover {
   text-decoration: underline;
 }
 
-input:checked+label {
+input:checked + label {
   text-decoration: line-through;
 }

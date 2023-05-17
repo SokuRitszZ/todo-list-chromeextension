@@ -12,18 +12,18 @@ const manifest: Manifest.WebExtensionManifest = {
   icons: {
     '16': 'icon.png',
     '32': 'icon.png',
-    '128': 'icon.png'
+    '128': 'icon.png',
   },
   background: {
     service_worker: './src/background/index.js',
-    type: 'module'
+    type: 'module',
   },
   action: {
-    default_popup: './src/popup/index.html'
+    default_popup: './src/popup/index.html',
   },
   chrome_url_overrides: {
-    newtab: './src/newtab/index.html'
-  }
+    newtab: './src/newtab/index.html',
+  },
 };
 
 export default manifest;

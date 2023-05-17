@@ -1,5 +1,5 @@
 @tailwind components;
-@tailwind utilities; 
+@tailwind utilities;
 
 body {
   @apply bg-slate-500;

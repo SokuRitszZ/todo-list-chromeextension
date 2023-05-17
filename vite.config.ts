@@ -15,8 +15,8 @@ export default defineConfig({
       '@root': srcPath(),
       '@popup': srcPath('popup'),
       '@newtab': srcPath('newtab'),
-      '@background': srcPath('background')
-    }
+      '@background': srcPath('background'),
+    },
   },
   publicDir,
   build: {
@@ -26,12 +26,12 @@ export default defineConfig({
       input: {
         popup: srcPath('popup', 'index.html'),
         newtab: srcPath('newtab', 'index.html'),
-        background: srcPath('background', 'index.ts')
+        background: srcPath('background', 'index.ts'),
       },
       output: {
-        entryFileNames: (chunk) => `src/${chunk.name}/index.js`
-      }
-    }
+        entryFileNames: (chunk) => `src/${chunk.name}/index.js`,
+      },
+    },
   },
-  plugins: [makeManifest(), solid()]
+  plugins: [makeManifest(), solid()],
 });

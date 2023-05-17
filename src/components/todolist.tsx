@@ -5,7 +5,7 @@ import {
   resetTodoTitle,
   todoList,
   toggleDone,
-  toggleShow
+  toggleShow,
 } from '@root/store/todolist';
 import { createSignal } from 'solid-js';
 import style from './todolist.module.css';
@@ -56,7 +56,7 @@ function TodoListItem(props: {
       <div
         class='w-full h-5 flex items-center gap-3 pl-2 pr-3 box-border'
         style={{
-          'background-color': color
+          'background-color': color,
         }}
       >
         <input
